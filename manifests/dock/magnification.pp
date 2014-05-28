@@ -26,13 +26,14 @@ class osx::dock::magnification ($magnification = true, $magnification_size = '12
     notify => Exec['killall Dock'];
   }
 
-  boxen::osx_defaults { 'magnification_size':
-    domain => 'com.apple.dock',
-    key    => 'largesize',
-    type   => int,
-    value  => $magnification_size,
-    user   => $::boxen_user,
-    notify => Exec['killall Dock'];
+  if ($magnification) {
+    boxen::osx_defaults { 'magnification_size':
+      domain => 'com.apple.dock',
+      key    => 'largesize',
+      type   => int,
+      value  => $magnification_size,
+      user   => $::boxen_user,
+      notify => Exec['killall Dock'];
+    }
   }
-
 }
